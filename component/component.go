@@ -1,64 +1,36 @@
 package component
 
-type xor struct {
-  in1, in2, out chan bool
-}
-
 func XOR(in1, in2, out chan bool) {
-  x := xor{in1, in2, out}
+  go func() {
+    for {
+      val1 := <-in1
+      val2 := <-in2
 
-  go x.start()
-}
-
-func (x *xor) start() {
-  for {
-    val1 := <-x.in1
-    val2 := <-x.in2
-
-    x.out <- val1 != val2
-  }
-}
-
-type or struct {
-  in1, in2, out chan bool
+      out <- val1 != val2
+    }
+  }()
 }
 
 func OR(in1, in2, out chan bool) {
-  o := or{in1, in2, out}
+  go func() {
+    for {
+      val1 := <-in1
+      val2 := <-in2
 
-  go o.start()
-}
-
-func (o *or) start() {
-  for {
-    val1 := <-o.in1
-    val2 := <-o.in2
-
-    o.out <- val1 || val2
-  }
-}
-
-type and struct {
-  in1, in2, out chan bool
+      out <- val1 || val2
+    }
+  }()
 }
 
 func AND(in1, in2, out chan bool) {
-  and := and{in1, in2, out}
+  go func() {
+    for {
+      val1 := <-in1
+      val2 := <-in2
 
-  go and.start()
-}
-
-func (a *and) start() {
-  for {
-    val1 := <-a.in1
-    val2 := <-a.in2
-
-    a.out <- val1 && val2
-  }
-}
-
-type adder struct {
-  in1, in2, out, carry chan bool
+      out <- val1 && val2
+    }
+  }()
 }
 
 func ADDER(in1, in2, out, carry chan bool) {
