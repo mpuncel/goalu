@@ -9,13 +9,8 @@ func TestOR(t *testing.T) {
   in2 := make(chan bool)
   out := make(chan bool)
 
-  or := OR{in1, in2, out}
+  OR(in1, in2, out)
 
-  go func() {
-    for {
-      or.do()
-    }
-  }()
   in1 <- true
   in2 <- true
   if !<-out {
