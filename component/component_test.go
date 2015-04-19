@@ -7,9 +7,8 @@ import (
 func TestXOR(t *testing.T) {
   in1 := make(chan bool)
   in2 := make(chan bool)
-  out := make(chan bool)
 
-  XOR(in1, in2, out)
+  out := XOR(in1, in2)
 
   in1 <- true
   in2 <- true
@@ -71,9 +70,8 @@ func TestOR(t *testing.T) {
 func TestAND(t *testing.T) {
   in1 := make(chan bool)
   in2 := make(chan bool)
-  out := make(chan bool)
 
-  AND(in1, in2, out)
+  out := AND(in1, in2)
 
   in1 <- true
   in2 <- true
@@ -103,10 +101,8 @@ func TestAND(t *testing.T) {
 func TestADDER(t *testing.T) {
   in1 := make(chan bool)
   in2 := make(chan bool)
-  out := make(chan bool)
-  carry := make(chan bool)
 
-  ADDER(in1, in2, out, carry)
+  out, carry := ADDER(in1, in2)
 
   in1 <- true
   in2 <- true
