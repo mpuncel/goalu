@@ -1,12 +1,14 @@
 package component
 
-func XOR(in1, in2 chan bool) Outputer{
+func XOR(in1, in2 Outputer) Outputer{
   out := make(chan bool)
 
+  in1Ch := in1.Output()
+  in2Ch := in2.Output()
   go func() {
     for {
-      val1 := <-in1
-      val2 := <-in2
+      val1 := <-in1Ch
+      val2 := <-in2Ch
 
       out <- val1 != val2
     }
@@ -15,12 +17,14 @@ func XOR(in1, in2 chan bool) Outputer{
   return NODE(out)
 }
 
-func OR(in1, in2 chan bool) Outputer {
+func OR(in1, in2 Outputer) Outputer {
   out := make(chan bool)
+  in1Ch := in1.Output()
+  in2Ch := in2.Output()
   go func() {
     for {
-      val1 := <-in1
-      val2 := <-in2
+      val1 := <-in1Ch
+      val2 := <-in2Ch
 
       out <- val1 || val2
     }
@@ -29,12 +33,14 @@ func OR(in1, in2 chan bool) Outputer {
   return NODE(out)
 }
 
-func AND(in1, in2 chan bool) Outputer{
+func AND(in1, in2 Outputer) Outputer{
   out := make(chan bool)
+  in1Ch := in1.Output()
+  in2Ch := in2.Output()
   go func() {
     for {
-      val1 := <-in1
-      val2 := <-in2
+      val1 := <-in1Ch
+      val2 := <-in2Ch
 
       out <- val1 && val2
     }
