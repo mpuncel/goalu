@@ -8,7 +8,7 @@ func TestXOR(t *testing.T) {
   in1 := make(chan bool)
   in2 := make(chan bool)
 
-  out := XOR(in1, in2).Output()
+  out := XOR(NODE(in1), NODE(in2)).Output()
 
   in1 <- true
   in2 <- true
@@ -39,7 +39,7 @@ func TestOR(t *testing.T) {
   in1 := make(chan bool)
   in2 := make(chan bool)
 
-  out := OR(in1, in2).Output()
+  out := OR(NODE(in1), NODE(in2)).Output()
 
   in1 <- true
   in2 <- true
@@ -70,7 +70,7 @@ func TestAND(t *testing.T) {
   in1 := make(chan bool)
   in2 := make(chan bool)
 
-  out := AND(in1, in2).Output()
+  out := AND(NODE(in1), NODE(in2)).Output()
 
   in1 <- true
   in2 <- true
